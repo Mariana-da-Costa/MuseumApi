@@ -4,13 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.museumapi.databinding.ItemHomeLayoutBinding
+import com.museumapi.model.MuseumObject
 
-class HomeAdapter(val list: List<Int>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(private val list: List<MuseumObject>) :
+    RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
-    class ViewHolder(val viewBinding: ItemHomeLayoutBinding) :
+    class ViewHolder(private val viewBinding: ItemHomeLayoutBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
-        fun onBind() {
-
+        fun onBind(item: MuseumObject) {
+            item.let {
+                viewBinding.tvTitle.text = it.title
+                viewBinding.tvDetail.text = it.artistRole
+            }
         }
     }
 
@@ -29,6 +34,6 @@ class HomeAdapter(val list: List<Int>) : RecyclerView.Adapter<HomeAdapter.ViewHo
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        holder.onBind(list[position])
     }
 }
