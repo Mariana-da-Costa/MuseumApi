@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.museumapi.databinding.ItemHomeLayoutBinding
 import com.museumapi.model.MuseumObject
+import com.squareup.picasso.Picasso
 
 class HomeAdapter(private val list: List<MuseumObject>) :
     RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
@@ -15,6 +16,9 @@ class HomeAdapter(private val list: List<MuseumObject>) :
             item.let {
                 viewBinding.tvTitle.text = it.title
                 viewBinding.tvDetail.text = it.artistRole
+                val imagePath = it.primaryImage
+                if (imagePath.isNotEmpty())
+                    Picasso.get().load(imagePath).into(viewBinding.ivPrincipal)
             }
         }
     }

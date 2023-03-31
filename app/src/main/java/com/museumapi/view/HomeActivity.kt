@@ -28,7 +28,7 @@ class HomeActivity : AppCompatActivity() {
             HomeViewModel.HomeViewModelFactory(Repository())
         )[HomeViewModel::class.java]
 
-        viewModel.obterLista(20)
+        viewModel.obterLista(4)
 
         viewModel.lista.observe(this, Observer {
             lista.addAll(it)
