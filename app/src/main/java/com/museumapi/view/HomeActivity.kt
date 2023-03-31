@@ -11,13 +11,15 @@ import com.museumapi.model.MuseumObject
 import com.museumapi.repository.Repository
 
 class HomeActivity : AppCompatActivity() {
-    private lateinit var viewBinding: ActivityHomeBinding
+    private lateinit var viewBinding: HomeActivityBinding
     private lateinit var viewModel: HomeViewModel
     private val lista = mutableListOf<MuseumObject>()
     private val listaAdapter = HomeAdapter(lista)
+    private var id: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewBinding = ActivityHomeBinding.inflate(layoutInflater)
+        viewBinding = HomeActivityBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
         setupRecyclerView()
     }
@@ -38,10 +40,13 @@ class HomeActivity : AppCompatActivity() {
         viewBinding.rvHome.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(viewBinding.root.context)
-            adapter = listaAdapter
-            this.setOnClickListener {
-                val intent = Intent(context, DetailActivity::class.java)
-                startActivity(intent)
+            adapter = HomeAdapter(lista) {
+                id
+                setOnClickListener {
+                    val intent = Intent(context, DetailActivity::class.java)
+                    intent.putExtra("ID", id)
+                    startActivity(intent)
+                }
             }
         }
     }
